@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="styles.css" />
+</head>
+<body>
+<div id="container">
+<h1>Tip Calculator</h1>
+<div id="calculator">
+<form>
+<p>How much was your bill?</p>
+<p>$ <input id="billamt" type="text" placeholder="Bill Amount" /></p>
+<p>How was your service?</p>
+<p>
+<select id="serviceQual">
+<option disabled selected value="0">-- Choose an Option --</option>
+<option value="0.3">30&#37; &#45; Outstanding</option>
+<option value="0.2">20&#37; &#45; Good</option>
+<option value="0.15">15&#37; &#45; It was OK</option>
+<option value="0.1">10&#37; &#45; Bad</option>
+<option value="0.05">5&#37; &#45; Terrible</option>
+</select>
+</p>
+</form>
+<p>How many people are sharing the bill?</p>
+<input id="peopleamt" type="text" placeholder="Number of People" /> people
+<button type="button" id="calculate" onclick="calculateTip()">Calculate!</button>
+</div>
+<!--calculator end-->
+<div id="totalAndTip">
+</div>
+<!--totalTip end-->
+</div>
+<!--container end-->
+<script type="text/javascript" src="calculator.js"></script>
+<!--Salesforce.com integration begin-->
+<style type='text/css'>
+.embeddedServiceHelpButton .helpButton .uiButton {
+background-color: #005290;
+font-family: "Arial", sans-serif;
+}
+.embeddedServiceHelpButton .helpButton .uiButton:focus {
+outline: 1px solid #005290;
+}
+</style>
+<script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
+<script type='text/javascript'>
+var initESW = function(gslbBaseURL) {
+embedded_svc.settings.displayHelpButton = true; //Or false
+embedded_svc.settings.language = ''; //For example, enter 'en' or 'en-US'
+//embedded_svc.settings.defaultMinimizedText = '...'; //(Defaults to Chat with an Expert)
+//embedded_svc.settings.disabledMinimizedText = '...'; //(Defaults to Agent Offline)
+//embedded_svc.settings.loadingText = ''; //(Defaults to Loading)
+//embedded_svc.settings.storageDomain = 'yourdomain.com'; //(Sets the domain for your deployment so that visitors can navigate subdomains during a chat session)
+// Settings for Chat
+//embedded_svc.settings.directToButtonRouting = function(prechatFormData) {
+// Dynamically changes the button ID based on what the visitor enters in the pre-chat form.
+// Returns a valid button ID.
+//};
+//embedded_svc.settings.prepopulatedPrechatFields = {}; //Sets the auto-population of pre-chat form fields
+//embedded_svc.settings.fallbackRouting = []; //An array of button IDs, user IDs, or userId_buttonId
+//embedded_svc.settings.offlineSupportMinimizedText = '...'; //(Defaults to Contact Us)
+embedded_svc.settings.enabledFeatures = ['LiveAgent'];
+embedded_svc.settings.entryFeature = 'LiveAgent';
+embedded_svc.init(
+'https://na85.salesforce.com',
+'https://jcarleytest-developer-edition.na85.force.com/liveAgentSetupFlow',
+gslbBaseURL,
+'00D1U0000012j3S',
+'Chat_Agents',
+{
+baseLiveAgentContentURL: 'https://c.la2-c1-ph2.salesforceliveagent.com/content',
+deploymentId: '5721U0000001qCA',
+buttonId: '5731U0000001svi',
+baseLiveAgentURL: 'https://d.la2-c1-ph2.salesforceliveagent.com/chat',
+eswLiveAgentDevName: 'Chat_Agents',
+isOfflineSupportEnabled: false
+}
+);
+};
+if (!window.embedded_svc) {
+var s = document.createElement('script');
+s.setAttribute('src', 'https://na85.salesforce.com/embeddedservice/5.0/esw.min.js');
+s.onload = function() {
+initESW(null);
+};
+document.body.appendChild(s);
+} else {
+initESW('https://service.force.com');
+}
+</script>
+<!--Salesforce.com integration end--> 
+</body>
+</html>
